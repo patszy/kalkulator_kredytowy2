@@ -13,19 +13,28 @@
 		<h:form id="form_calc">
 			<h:panelGrid id="grid" columns="3" cellpadding="5">
 		  		<p:outputLabel for="value" value="Wartość:" />
-		  		<p:inputText id="value" value="#{calc.value}" required="true" requiredMessage="Brak wartości." />
+		  		<p:inputText id="value" value="#{calc.value}" required="true"
+		  			requiredMessage="Brak wartości pożyczki." converterMessage="Wartość musi być liczbą całkowitą." validatorMessage="Wartość musi być większa od 100.">
+		  			<f:validateLongRange minimum="100" integerOnly="true" />
+		  		</p:inputText>
 				<p:message for="value" />
 	
 				<p:outputLabel for="percent" value="Oprocentowanie:" />
-		  		<p:inputText id="percent" value="#{calc.percent}" required="true" requiredMessage="Brak oprocentowania." />
+		  		<p:inputText id="percent" value="#{calc.percent}" required="true" 
+		  			requiredMessage="Brak oprocentowania." converterMessage="Oprocentowanie musi być liczbą." validatorMessage="Oprocentowanie musi być większa od 0.10." >
+		  			<f:validateDoubleRange minimum="0.10" />
+		  		</p:inputText>
 				<p:message for="percent" />
 	 
 				<p:outputLabel for="year" value="Lata:" />
-		  		<p:inputText id="year" value="#{calc.year}" required="true" requiredMessage="Brak czasu." />
+		  		<p:inputText id="year" value="#{calc.year}" required="true" 
+		  			requiredMessage="Brak czasu spłaty." converterMessage="Lata muszą być liczbą całkowitą." validatorMessage="Lata muszą być od 1 do 30." >
+		  			<f:validateLongRange minimum="1" maximum="30" integerOnly="true" />
+		  		</p:inputText>
 				<p:message for="year" />		
 				
-				<p:commandButton value="Oblicz" action="#{calc.calc()}" update="@form"/>
-				<p:commandButton value="Oblicz (AJAX)" action="#{calc.calc_AJAX()}" update="msg"/>
+				<p:commandButton value="Oblicz" action="#{calc.calc()}" update="@form" />
+				<p:commandButton value="Oblicz (AJAX)" action="#{calc.calc_AJAX()}" update="msg" />
 			</h:panelGrid>
 		 
 			<p:messages id="msg" closable="true" />

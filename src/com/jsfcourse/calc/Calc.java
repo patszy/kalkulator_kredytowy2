@@ -11,36 +11,36 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 //@SessionScoped
 public class Calc {
-	private String value;
-	private String year;
-	private String percent;
+	private Integer value;
+	private Integer year;
+	private Double percent;
 	private Double result;
 	private Double cost;
 
 	@Inject
 	FacesContext ctx;
 
-	public String getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
 
-	public String getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(String year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
-	public String getPercent() {
+	public Double getPercent() {
 		return percent;
 	}
 
-	public void setPercent(String percent) {
+	public void setPercent(Double percent) {
 		this.percent = percent;
 	}
 
@@ -62,12 +62,9 @@ public class Calc {
 
 	public boolean doTheMath() {
 		try {
-			double value = Double.parseDouble(this.value);
-			double percent = Double.parseDouble(this.percent);
-			double year = Double.parseDouble(this.year);
-
-			cost = value+(value*(percent/100)*year);
-			result = value+(value*(percent/100)*year)/(year*12);
+			cost = (Math.round((this.value+(this.value*(this.percent/100)*this.year)) * 100))/100.0;
+			result = (Math.round((this.value+(this.value*(this.percent/100)*this.year)/(this.year*12)) * 100))/100.0;
+			
 
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Udało sie.", null));
 			return true;
