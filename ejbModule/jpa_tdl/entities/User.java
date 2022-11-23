@@ -27,18 +27,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Todolist> todolists;
 
-	//bi-directional many-to-many association to Role
-	@ManyToMany
-	@JoinTable(
-		name="user_role"
-		, joinColumns={
-			@JoinColumn(name="id_user_role")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="id_user_role")
-			}
-		)
-	private List<Role> roles;
+	//bi-directional many-to-one association to UserRole
+	@OneToMany(mappedBy="user")
+	private List<UserRole> userRoles;
 
 	public User() {
 	}
@@ -89,12 +80,26 @@ public class User implements Serializable {
 		return todolist;
 	}
 
-	public List<Role> getRoles() {
-		return this.roles;
+	public List<UserRole> getUserRoles() {
+		return this.userRoles;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	public UserRole addUserRole(UserRole userRole) {
+		getUserRoles().add(userRole);
+		userRole.setUser(this);
+
+		return userRole;
+	}
+
+	public UserRole removeUserRole(UserRole userRole) {
+		getUserRoles().remove(userRole);
+		userRole.setUser(null);
+
+		return userRole;
 	}
 
 }

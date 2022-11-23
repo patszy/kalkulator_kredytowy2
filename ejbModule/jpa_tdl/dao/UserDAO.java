@@ -1,12 +1,10 @@
-package tdl.dao;
+package jpa_tdl.dao;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import jpa_tdl.entities.User;
 
-@Stateless
 public class UserDAO {
 	@PersistenceContext
 	protected EntityManager em;
